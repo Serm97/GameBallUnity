@@ -12,6 +12,7 @@ TagManager:
   - key
   - blocking
   - goal
+  - block
   layers:
   - Default
   - TransparentFX

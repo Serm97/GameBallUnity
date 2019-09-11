@@ -1,9 +1,7 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
-using System.Threading;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class BallController : MonoBehaviour{
     
@@ -32,7 +30,7 @@ public class BallController : MonoBehaviour{
 
         rb = GetComponent<Rigidbody>();                                          //Get components of game object that contain this script
         audioRecolectable = GetComponent<AudioSource>();
-        textCounter.text = "Consigue las 5 llaves para anotar el gol.";
+        textCounter.text = "Consigue los 5 escudos para anotar el gol.";
         transform.localScale = new Vector3(3,3,3);
         keys = 0;
         
@@ -76,8 +74,15 @@ public class BallController : MonoBehaviour{
         }
 
         if(otherObject.gameObject.CompareTag("goal")){
+            textCounter.text = "";
             textGoal.text = "GOOOOOOOOOOOOOOL";
             StartCoroutine("ChangeLevel");
+        }
+
+        if(otherObject.gameObject.CompareTag("block")){
+            textCounter.color = Color.red;
+            textCounter.text = "PERDISTE :(";
+           StartCoroutine("ChangeLevel");
         }
 
     }
@@ -123,6 +128,6 @@ public class BallController : MonoBehaviour{
 
     public IEnumerator ChangeLevel(){
         yield return new WaitForSecondsRealtime(5.0f);
-        Debug.Log("Cambio de Nivel");
+        UnityEngine.SceneManagement.SceneManager.LoadScene(1);
     }
 }
